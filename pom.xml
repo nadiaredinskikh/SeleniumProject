@@ -1,0 +1,211 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.example</groupId>
+  <artifactId>qaLabHomework</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
+  <properties>
+    <allure.version>1.4.23</allure.version>
+    <aspectj.version>1.8.5</aspectj.version>
+    <logback.version>1.1.7</logback.version>
+    <slf4j.version>1.7.12</slf4j.version>
+
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.testng</groupId>
+      <artifactId>testng</artifactId>
+      <version>6.9.10</version>
+    </dependency>
+    <dependency>
+      <groupId>ru.stqa.selenium</groupId>
+      <artifactId>webdriver-factory</artifactId>
+      <version>3.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-java</artifactId>
+      <version>2.53.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>htmlunit-driver</artifactId>
+      <version>2.21</version>
+    </dependency>
+
+    <dependency>
+      <groupId>ru.yandex.qatools.allure</groupId>
+      <artifactId>allure-testng-adaptor</artifactId>
+      <version>${allure.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.aspectj</groupId>
+      <artifactId>aspectjweaver</artifactId>
+      <version>${aspectj.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-simple</artifactId>
+      <version>${slf4j.version}</version>
+    </dependency>
+      <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <version>${logback.version}</version>
+  </dependency>
+  </dependencies>
+  <build>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+      </resource>
+    </resources>
+    <testResources>
+      <testResource>
+        <directory>src/test/resources</directory>
+        <filtering>true</filtering>
+      </testResource>
+    </testResources>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>2.7</version>
+        <configuration>
+          <encoding>UTF-8</encoding>
+        </configuration>
+      </plugin> 
+      <plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.19.1</version>
+        <configuration>
+
+          <suiteXmlFiles>
+            <suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>
+          </suiteXmlFiles>
+          <systemPropertyVariables>
+            <application.properties>/application.properties</application.properties>
+          </systemPropertyVariables>
+          <testFailureIgnore>false</testFailureIgnore>
+          <argLine>
+            -javaagent:${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar
+          </argLine>
+          <properties>
+            <property>
+              <name>listener</name>
+              <value>ru.yandex.qatools.allure.testng.AllureTestListener</value>
+            </property>
+          </properties>
+          <groups>smoke,full</groups>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.5.1</version>
+        <configuration>
+          <source>1.6</source>
+          <target>1.6</target>
+          <encoding>UTF-8</encoding>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.eclipse.jetty</groupId>
+        <artifactId>jetty-maven-plugin</artifactId>
+        <version>9.2.10.v20150310</version>
+        <configuration>
+          <webAppSourceDirectory>${project.build.directory}/site/allure-maven-plugin</webAppSourceDirectory>
+          <stopKey>stop</stopKey>
+          <stopPort>1234</stopPort>
+        </configuration>
+      </plugin>
+
+
+
+    </plugins>
+  </build>
+  <reporting>
+    <excludeDefaults>true</excludeDefaults>
+    <plugins><plugin>
+      <groupId>org.eclipse.jetty</groupId>
+      <artifactId>jetty-maven-plugin</artifactId>
+      <version>9.2.10.v20150310</version>
+      <configuration>
+        <webAppSourceDirectory>${project.build.directory}/site/allure-maven-plugin</webAppSourceDirectory>
+        <stopKey>stop</stopKey>
+        <stopPort>1234</stopPort>
+      </configuration>
+    </plugin>
+      <plugin>
+        <groupId>ru.yandex.qatools.allure</groupId>
+        <artifactId>allure-maven-plugin</artifactId>
+        <version>2.5</version>
+      </plugin>
+    </plugins>
+  </reporting>
+  <!-- profiles -->
+  <profiles>
+    <!-- browsers -->
+    <profile>
+      <id>firefox</id>
+      <properties>
+        <capabilities>/firefox.capabilities</capabilities>
+      </properties>
+
+
+    </profile>
+    <profile>
+      <id>chrome</id>
+      <properties>
+        <capabilities>/chrome.capabilities</capabilities>
+      </properties>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+
+    </profile>
+
+    <!-- environments -->
+    <profile>
+      <id>localhost</id>
+      <properties>
+        <site.url>http://localhost/</site.url>
+      </properties>
+
+    </profile>
+
+    <!-- grid -->
+    <profile>
+      <id>nogrid</id>
+      <properties>
+        <grid.url></grid.url>
+      </properties>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+    </profile>
+   <!-- <profile>
+      <id>grid</id>
+      <properties>
+        <grid.url>http://localhost:4444/wd/hub/</grid.url>
+      </properties>
+    </profile>-->
+    <profile>
+      <id>ebay</id>
+      <properties>
+        <site.url>http://ebay.com/</site.url>
+        <site.login>test_login</site.login>
+        <site.password>testp@ssword11</site.password>
+      </properties>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+    </profile>
+
+
+
+  </profiles>
+</project>

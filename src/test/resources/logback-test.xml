@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <timestamp key="byDay" datePattern="yyyyMMdd'T'HHmmss"/>
+    <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
+        <resetJUL>true</resetJUL>
+    </contextListener>
+
+
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <File>target/logback/logback_output-${byDay}.log</File>
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%level] %logger{15} - %msg%n%rEx</pattern>
+            <immediateFlush>true</immediateFlush>
+        </encoder>
+    </appender>
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>[%level] %d{HH:mm:ss.SSS} %logger{15} - %msg%n%rEx</pattern>
+            <immediateFlush>true</immediateFlush>
+        </encoder>
+    </appender>
+
+    <logger name="com.example" level="INFO"/>
+
+    <root level="INFO">
+        <appender-ref ref="FILE"/>
+        <appender-ref ref="CONSOLE"/>
+    </root>
+</configuration>

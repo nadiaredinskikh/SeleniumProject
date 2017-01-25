@@ -1,0 +1,12 @@
+com\example\ShopPageTest.class
+com\example\util\PropertyLoader.class
+com\example\pages\SearchFieldPage.class
+com\example\HomePageTest.class
+com\example\pages\SnippetPage.class
+com\example\pages\ShoppingCartPage.class
+com\example\ShopPageLogin.class
+com\example\pages\ProductCardPage.class
+com\example\SnippetPageTest.class
+com\example\pages\Page.class
+com\example\pages\HomePage.class
+com\example\TestNgTestBase.class

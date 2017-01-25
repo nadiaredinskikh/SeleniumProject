@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite thread-count="2" guice-stage="DEVELOPMENT" verbose="0" name="Failed suite [Tests]" parallel="classes">
+  <test name="Test1">
+    <groups>
+      <run>
+        <include name="smoke"/>
+        <include name="full"/>
+      </run>
+    </groups>
+    <classes>
+      <class name="com.example.ShopPageTest"/>
+      <class name="com.example.ShopPageLogin"/>
+      <class name="com.example.HomePageTest"/>
+    </classes>
+  </test> <!-- Test1 -->
+  <test name="Test1(failed)" parallel="classes">
+    <groups>
+      <run>
+        <include name="smoke"/>
+        <include name="full"/>
+      </run>
+    </groups>
+    <classes>
+      <class name="com.example.HomePageTest">
+        <methods>
+          <include name="testHomePageLogin"/>
+          <include name="homePageLogOut"/>
+        </methods>
+      </class> <!-- com.example.HomePageTest -->
+      <class name="com.example.ShopPageTest">
+        <methods>
+          <include name="testContinueShopping"/>
+          <include name="clean"/>
+          <include name="testFreeShipping"/>
+          <include name="initTestSuite"/>
+          <include name="initPageObjects"/>
+          <include name="testAddToCart"/>
+          <include name="tearDown"/>
+          <include name="initWebDriver"/>
+          <include name="testTotalCount"/>
+          <include name="testSumAfterBoxCountChanging"/>
+          <include name="testTotalSumAfterBoxCountChanging"/>
+          <include name="testCleanCart"/>
+        </methods>
+      </class> <!-- com.example.ShopPageTest -->
+      <class name="com.example.ShopPageLogin">
+        <methods>
+          <include name="testSumAfterBoxCountChanging"/>
+          <include name="checkSumAfterSaveForLater"/>
+          <include name="testSaveForLater"/>
+          <include name="testCleanCart"/>
+          <include name="testAddToCart"/>
+          <include name="checkSumBackToCart"/>
+          <include name="testFreeShipping"/>
+          <include name="testContinueShopping"/>
+          <include name="testTotalSumAfterBoxCountChanging"/>
+          <include name="clean"/>
+          <include name="initPageObjects"/>
+          <include name="initWebDriver"/>
+          <include name="checkSumAfterRemove"/>
+          <include name="testBackToCart"/>
+          <include name="testTotalCount"/>
+        </methods>
+      </class> <!-- com.example.ShopPageLogin -->
+    </classes>
+  </test> <!-- Test1(failed) -->
+</suite> <!-- Failed suite [Tests] -->
