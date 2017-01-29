@@ -197,8 +197,8 @@
       <id>ebay</id>
       <properties>
         <site.url>http://ebay.com/</site.url>
-        <site.login>test_login</site.login>
-        <site.password>testp@ssword11</site.password>
+        <site.login>login</site.login>
+        <site.password>password</site.password>
       </properties>
       <activation>
         <activeByDefault>true</activeByDefault>
